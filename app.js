@@ -10,6 +10,7 @@ require('./models')
 const indexRouter = require('./routes/index');
 const taskRouter = require('./routes/task');
 const legacyTaskRouter = require('./routes/legacyTask');
+var loggerMiddleware = require('./middleware/logger');
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(loggerMiddleware);
 
 app.use('/', indexRouter);
 app.use('/task', taskRouter);
