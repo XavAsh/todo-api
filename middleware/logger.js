@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const getLogFilePath = () => {
-    const date = new Date().toISOString().split('T')[0]; // Get the date part of the ISO string
+    const date = new Date().toISOString().split('T')[0]; 
     return path.join(__dirname, `logs-${date}.txt`);
 };
 

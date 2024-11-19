@@ -11,6 +11,8 @@ const indexRouter = require('./routes/index');
 const taskRouter = require('./routes/task');
 const legacyTaskRouter = require('./routes/legacyTask');
 var loggerMiddleware = require('./middleware/logger');
+const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
 
 const app = express();
 
@@ -25,6 +27,9 @@ app.use(loggerMiddleware);
 
 app.use('/', indexRouter);
 app.use('/task', taskRouter);
+app.use('/auth', authRouter);
+app.use('/profile', profileRouter);
+
 app.use('/legacyTask', legacyTaskRouter);
 
 

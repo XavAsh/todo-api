@@ -61,6 +61,33 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.put('/:id', async (req, res) => {
+    const taskId = req.params.id;
+    const { title, description, due_date, type_id, done } = req.body;
+    const update_date = new Date();
+
+    try {
+        const task = await Task.findByPk(taskId);
+        if (!task) {
+            return res.status(404).send("Tâche non trouvée");
+        }
+
+        task.title = title || task.title;
+        task.description = description || task.description;
+        task.due_date = due_date || task.due_date;
+        task.type_id = type_id || task.type_id;
+        task.done = done !== undefined ? done : task.done;
+        task.update_date = update_date;
+
+        await task.save();
+        res.json(task.toJSON());
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erreur lors de la mise à jour de la tâche");
+    }
+});
+ 
+
   router.delete('/:id', async (req, res) => {
     try {
         const task = await Task.findByPk(req.params.id);
